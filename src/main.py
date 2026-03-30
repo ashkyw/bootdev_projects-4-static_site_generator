@@ -2,7 +2,7 @@ import textnode as tn
 
 
 def main():
-    print(tn.TextNode("This is some anchor text", "ink", "https://boot.dev"))
+    print(tn.TextNode("This is some anchor text", "link", "https://boot.dev"))
 
 
 if __name__ == "__main__":
