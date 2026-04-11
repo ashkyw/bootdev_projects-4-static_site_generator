@@ -28,3 +28,26 @@ def extract_markdown_images(text):
 def extract_markdown_links(text):
     matches = re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)",text)
     return matches
+
+def split_nodes_image(old_nodes):
+    new_nodes = []
+    for old_node in old_nodes:
+        if old_node.text_type != TextType.TEXT:
+            new_nodes.append(old_node)
+            continue
+        split_nodes = []
+        image_alt, image_link = extract_markdown_images(old_node.text)
+        sections = old_node.text.split(f"![{image_alt}]({image_link})", 1)
+        for i in range(len(sections)):
+            if sections[i] == "":
+                continue
+            if i % 2 == 0:
+                split_nodes.append(TextNode(sections[i], TextType.TEXT))
+            else:
+                split_nodes.append(TextNode(sections[i], TextType.IMAGE))
+        new_nodes.extend(split_nodes)
+    return new_nodes
+
+def split_nodes_link(old_nodes):
+    split_links = extract_markdown_links()
+    pass
