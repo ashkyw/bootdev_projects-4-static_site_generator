@@ -1,2 +1,0 @@
-../static/index.css 
-../static/images/tolkien.png 
